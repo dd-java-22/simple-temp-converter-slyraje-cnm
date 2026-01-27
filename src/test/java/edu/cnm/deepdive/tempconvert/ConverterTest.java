@@ -4,19 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 class ConverterTest {
 
   static final double TOLERANCE_SCALE = 0.0001;
 
+  static final double MIN_ABSOLUTE_TOLERANCE = 0.0000000001;
+
   @ParameterizedTest
+  @CsvFileSource(resources = "convert-c2f-valid.csv", useHeadersInDisplayName = true)
   void convertC2F(double celsius, double expected) {
-    Converter converter = new Converter();
-    double celsius = -40;
-    double expected = -40;
-    double actual = converter.convertC2F(celsius);
-    double tolerance = Math.abs(expected * TOLERANCE_SCALE);
-    assertEquals(expected, actual, tolerance);
+    double tolerance = Math.max(Math.abs(expected * TOLERANCE_SCALE), MIN_ABSOLUTE_TOLERANCE);
+    assertEquals(
+        expected,
+        new Converter().convertC2F(celsius),
+        Math.abs(expected * TOLERANCE_SCALE));
 
 
   }

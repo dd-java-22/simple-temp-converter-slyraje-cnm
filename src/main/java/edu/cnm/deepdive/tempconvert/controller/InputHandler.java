@@ -6,7 +6,8 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
- * Handles user input from stdin, using a converter instance to perform conversions with InputMode to select conversions and writing output to stdout.
+ * Handles user input from stdin, using a converter instance to perform conversions with InputMode
+ * to select conversions and writing output to stdout.
  */
 public class InputHandler {
 
@@ -16,7 +17,13 @@ private static final String FAHRENHEIT_INPUT_PATTERN = "Fahrenheit = %.2f; Celsi
 
 private InputMode mode = InputMode.CELSIUS;
 
-public void process() {
+  /**
+   *
+   * @throws IllegalArgumentException if a specified input mode does not match one of the enumerated
+   * values of the InputMode enum.
+   */
+  public void process()
+    throws IllegalArgumentException {
   Converter converter = new Converter();
   Scanner scanner = new Scanner(System.in);
   while (scanner.hasNext()) {

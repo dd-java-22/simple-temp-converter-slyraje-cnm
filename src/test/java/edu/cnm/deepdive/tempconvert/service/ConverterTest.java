@@ -1,8 +1,10 @@
 package edu.cnm.deepdive.tempconvert.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -26,14 +28,7 @@ class ConverterTest {
   @ParameterizedTest
   @ValueSource(doubles = {Converter.CELSIUS_ABSOLUTE_ZERO - 0.01, -Double.MAX_VALUE})
   void convertC2F_invalid(double celsius) {
-    try {
-      new Converter().convertC2F(celsius);
-      fail("Illegal argument exception expected, but no exception thrown.");
-    } catch (IllegalArgumentException e) {
-//      Do nothing: This exception is expected.
-    } catch (Exception e) {
-      fail("Illegal argument exception expected, but %s thrown.".formatted(e.getClass().getSimpleName()));
-    }
+    assertThrows(IllegalArgumentException.class, () -> new Converter().convertC2F(celsius));
   }
 
   @ParameterizedTest
@@ -50,15 +45,7 @@ class ConverterTest {
   @ParameterizedTest
   @ValueSource(doubles = {Converter.FAHRENHEIT_ABSOLUTE_ZERO - 0.01, -Double.MAX_VALUE})
   void convertF2C_invalid(double fahrenheit) {
-    try {
-      new Converter().convertF2C(fahrenheit);
-      fail("Illegal argument exception expected, but no exception thrown.");
-    } catch (IllegalArgumentException e) {
-//      Do nothing: This exception is expected.
-    } catch (Exception e) {
-      fail("Illegal argument exception expected, but %s thrown.".formatted(e.getClass().getSimpleName()));
-    }
-
+    assertThrows(IllegalArgumentException.class, () -> new Converter().convertF2C(fahrenheit));
   }
 
 
